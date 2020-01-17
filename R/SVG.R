@@ -66,13 +66,11 @@
 #' @export
 svglite <- function(file = if(onefile) "Rplots.svg" else "Rplot%03d.svg", width = 10, height = 8,
                     bg = "white", pointsize = 12, standalone = TRUE,
-                    system_fonts = list(), user_fonts = list(),
-                    onefile = TRUE) {
+                    system_fonts = list(), user_fonts = list()) {
   if (!checkIntFormat(file))
     stop("invalid 'file'")
   aliases <- validate_aliases(system_fonts, user_fonts)
-  if (!onefile)
-    onefile <- !grepl("%\\d+d", file)
+  onefile <- !grepl("%\\d+d", file)
   invisible(svglite_(file, bg, width, height, pointsize, standalone, aliases, onefile))
 }
 
@@ -101,13 +99,12 @@ svglite <- function(file = if(onefile) "Rplots.svg" else "Rplot%03d.svg", width 
 #' @export
 svgstring <- function(width = 10, height = 8, bg = "white",
                       pointsize = 12, standalone = TRUE,
-                      system_fonts = list(), user_fonts = list(),
-                      onefile = TRUE) {
+                      system_fonts = list(), user_fonts = list()) {
   aliases <- validate_aliases(system_fonts, user_fonts)
 
   env <- new.env(parent = emptyenv())
   string_src <- svgstring_(env, width = width, height = height, bg = bg,
-    pointsize = pointsize, standalone = standalone, aliases = aliases, onefile = onefile)
+    pointsize = pointsize, standalone = standalone, aliases = aliases, onefile = TRUE)
 
   function() {
     svgstr <- if(env$is_closed) env$svg_string else get_svg_content(string_src)
