@@ -4,6 +4,7 @@
 \alias{svglite}
 \title{An SVG Graphics Driver}
 \usage{
+<<<<<<< HEAD
 svglite(
   file = "Rplots.svg",
   width = 10,
@@ -14,6 +15,11 @@ svglite(
   system_fonts = list(),
   user_fonts = list()
 )
+=======
+svglite(file = if (onefile) "Rplots.svg" else "Rplot\%03d.svg", width = 10,
+  height = 8, bg = "white", pointsize = 12, standalone = TRUE,
+  system_fonts = list(), user_fonts = list(), onefile = TRUE)
+>>>>>>> modified tests
 }
 \arguments{
 \item{file}{The file where output will appear.}
