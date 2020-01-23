@@ -59,6 +59,7 @@ test_that("creating multiple pages is identical to creating multiple individual 
   expect_identical(s_multiple()[1L], s_1()[1L], label = "svgstring first plot")
   expect_identical(s_multiple()[2L], s_2()[1L], label = "svgstring second plot")
 
+
   # same with devices
   dir <- tempdir()
   f_multiple <- file.path(dir, "test-multiple-%03d.svg")
@@ -85,3 +86,8 @@ test_that("creating multiple pages is identical to creating multiple individual 
   expect_identical(readLines(f_multiple_2), readLines(f_single_2), label = "svglite second plot")
 
 })
+
+test_that("invalid file format crashes with onefile = FALSE", {
+  expect_error(svglite("test%f%d.svg"))
+})
+
