@@ -31,10 +31,6 @@
 #'   \code{name} and \code{file} elements with \code{name} indicating
 #'   the font alias in the SVG output and \code{file} the path to a
 #'   font file.
-#'@param onefile Logical, if a new page is opened, should a new file
-#'   be created? The default (FALSE) appends all plots the same file.
-#'   If this is set to TRUE then the filename must contain \%d to
-#'   indicate the file number (e.g., "Rplots\%d.svg").
 #' @references \emph{W3C Scalable Vector Graphics (SVG)}:
 #'   \url{http://www.w3.org/Graphics/SVG/Overview.htm8}
 #' @author This driver was written by T Jake Luciani
@@ -70,8 +66,7 @@ svglite <- function(file = "Rplots.svg", width = 10, height = 8,
   if (!checkIntFormat(file))
     stop("invalid 'file'")
   aliases <- validate_aliases(system_fonts, user_fonts)
-  onefile <- !grepl("%\\d+d", file)
-  invisible(svglite_(file, bg, width, height, pointsize, standalone, aliases, onefile))
+  invisible(svglite_(file, bg, width, height, pointsize, standalone, aliases))
 }
 
 #' Access current SVG as a string.
@@ -104,7 +99,7 @@ svgstring <- function(width = 10, height = 8, bg = "white",
 
   env <- new.env(parent = emptyenv())
   string_src <- svgstring_(env, width = width, height = height, bg = bg,
-    pointsize = pointsize, standalone = standalone, aliases = aliases, onefile = TRUE)
+    pointsize = pointsize, standalone = standalone, aliases = aliases)
 
   function() {
     svgstr <- if(env$is_closed) env$svg_string else get_svg_content(string_src)
